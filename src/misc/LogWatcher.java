@@ -83,6 +83,13 @@ public abstract class LogWatcher {
                 protected void onChange(File file) {
                     checkLog(file);
                 }
+
+                @Override
+                protected void onFileReset() {
+                    // reset watcher to file with same name
+                    System.out.println("File reset");
+                    setLogPath(logPath);
+                }
             };
 
             this.timer = new Timer();

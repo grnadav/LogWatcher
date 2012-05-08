@@ -15,11 +15,17 @@ public abstract class FileWatcher extends TimerTask {
     public final void run() {
         long length = file.length();
 
-        if( this.length != length ) {
+        if( this.length > length) {
+            this.length = length;
+            onFileReset();
+            return;
+        }
+        if( this.length != length) {
             this.length = length;
             onChange(file);
         }
     }
 
-    protected abstract void onChange( File file );
+    protected abstract void onChange( File file);
+    protected abstract void onFileReset();
 }
